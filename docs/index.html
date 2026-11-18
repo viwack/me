@@ -1,31 +1,588 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vicky Wang</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="64x64" href="./favicon-64.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png" />
-    <script
-      src="./shinylive/load-shinylive-sw.js"
-      type="module"
-    ></script>
-    <script type="module">
-      import { runExportedApp } from "./shinylive/shinylive.js";
-      runExportedApp({
-        id: "root",
-        appEngine: "r",
-        relPath: "",
-      });
-    </script>
-    <link rel="stylesheet" href="./shinylive/style-resets.css" />
-    <link rel="stylesheet" href="./shinylive/shinylive.css" />
-    
-  </head>
-  <body>
-    
-    <div style="height: 100vh; width: 100vw" id="root"></div>
-    
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vicky Wang</title>
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="./favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Archivo+Narrow:wght@500;600;700&display=swap">
+<style>
+
+:root {
+  --brown-deep: #3E2723;
+  --brown: #6D4C34;
+  --brown-light: #A1887F;
+  --green-deep: #33691E;
+  --green: #556B2F;
+  --orange-deep: #C1541A;
+  --orange: #D9793F;
+  --cream: #FAF6F0;
+  --hairline: #E4DACB;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background: var(--cream) !important;
+  font-family: 'Lora', serif;
+  color: #2B2320;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.container-fluid {
+  max-width: 980px;
+}
+
+h2, h3, h4, h5 {
+  font-family: 'Archivo Narrow', sans-serif;
+  color: var(--brown-deep);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 28px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--orange);
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 20px;
+  color: var(--brown);
+  margin-top: 4px;
+}
+
+h4 {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--green-deep);
+  margin-bottom: 6px;
+}
+
+strong {
+  color: var(--brown-deep);
+}
+
+p {
+  color: #3A322D;
+  font-size: 16px;
+}
+
+/* Just the opening bio on the About page — sized up to feel proportionate to the big profile photo */
+.intro-bio p {
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+/* Content sections: flat, separated by a hairline instead of boxed cards */
+.content-box {
+  background: transparent;
+  margin-bottom: 6px;
+  padding: 26px 6px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.content-box:last-child {
+  border-bottom: none;
+}
+
+/* Individual items (jobs, projects) get their own visible container */
+.entry-card {
+  background: #FFFFFF;
+  border: 1px solid var(--hairline);
+  border-left: 4px solid var(--orange);
+  border-radius: 5px;
+  padding: 22px 26px;
+  margin-bottom: 22px;
+}
+
+.entry-card:last-child {
+  margin-bottom: 0;
+}
+
+.entry-card p {
+  margin-bottom: 10px;
+}
+
+/* Top navbar (replaces the old sidebar) */
+.navbar-default {
+  background: var(--cream) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--hairline) !important;
+  border-radius: 0 !important;
+  margin-bottom: 0;
+}
+
+.navbar-default .navbar-brand {
+  font-family: 'Archivo Narrow', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3px;
+  color: var(--brown-deep) !important;
+  font-size: 28px;
+  height: auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.navbar-default .navbar-brand a {
+  color: inherit !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+.navbar-default .navbar-nav {
+  float: right !important;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: var(--brown-deep) !important;
+  font-family: 'Archivo Narrow', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  border-bottom: 3px solid transparent;
+  background: transparent !important;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  padding-top: 18px;
+  padding-bottom: 15px;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: var(--orange-deep) !important;
+  border-bottom: 3px solid var(--orange) !important;
+  background: transparent !important;
+}
+
+.navbar-default .navbar-nav > li.active > a,
+.navbar-default .navbar-nav > li.active > a:hover,
+.navbar-default .navbar-nav > li.active > a:focus {
+  color: var(--green-deep) !important;
+  border-bottom: 3px solid var(--green) !important;
+  background: transparent !important;
+  font-weight: 700;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: var(--hairline);
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: var(--brown-deep);
+}
+
+/* Sub-tabs (used to split Experience into groups) */
+.nav-tabs {
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: 20px;
+}
+
+.nav-tabs > li > a {
+  color: var(--brown) !important;
+  font-family: 'Archivo Narrow', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  border: none !important;
+  border-bottom: 3px solid transparent !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  margin-right: 6px;
+}
+
+.nav-tabs > li > a:hover {
+  color: var(--orange-deep) !important;
+  border-bottom: 3px solid var(--orange) !important;
+  background: transparent !important;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: var(--green-deep) !important;
+  border-bottom: 3px solid var(--green) !important;
+  background: transparent !important;
+  font-weight: 700;
+}
+
+.tab-content {
+  padding-top: 6px;
+}
+
+.tab-pane .content-box:first-child {
+  padding-top: 4px;
+}
+
+/* Buttons: quiet outline style, fills in on hover, no bounce */
+.btn {
+  background: transparent;
+  color: var(--orange-deep) !important;
+  border: 1px solid var(--orange-deep);
+  border-radius: 3px;
+  margin: 5px 5px 5px 0;
+  padding: 7px 18px;
+  font-family: 'Archivo Narrow', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  box-shadow: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover {
+  background: var(--orange-deep);
+  color: var(--cream) !important;
+}
+
+.btn-primary {
+  color: var(--green-deep) !important;
+  border: 1px solid var(--green-deep) !important;
+  background: transparent !important;
+}
+
+.btn-primary:hover {
+  background: var(--green-deep) !important;
+  color: var(--cream) !important;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-photo {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 20px 0;
+}
+
+.hero-photo img {
+  border-radius: 50%;
+  width: 260px !important;
+  height: 260px !important;
+  border: 1px solid var(--hairline);
+}
+
+.timeline {
+  position: relative;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px 0;
+}
+
+.timeline:before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  background: var(--hairline);
+  top: 0;
+  bottom: 0;
+  left: 30px;
+  margin-left: -1px;
+}
+
+.timeline-event {
+  padding: 20px;
+  position: relative;
+  background-color: inherit;
+  width: 100%;
+}
+
+.timeline-event:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.timeline-content {
+  padding: 18px 20px;
+  background-color: transparent;
+  position: relative;
+  border-radius: 0;
+  width: 80%;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.timeline-content.left {
+  left: 70px;
+}
+
+.timeline-content.right {
+  left: 150px;
+}
+
+.timeline-point {
+  width: 10px;
+  height: 10px;
+  background: var(--orange-deep);
+  border: none;
+  position: absolute;
+  left: 25px;
+  top: 24px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+a {
+  color: var(--green-deep);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+a:hover {
+  color: var(--orange-deep);
+  border-bottom: 1px solid var(--orange-deep);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brown-light);
+  border-radius: 4px;
+}
+
+/* Footnote-style contact footer, shown at the bottom of every tab */
+.site-footer {
+  max-width: 980px;
+  margin: 10px auto 0 auto;
+  padding: 16px 6px 28px 6px;
+  border-top: 1px solid var(--hairline);
+  text-align: center;
+  font-size: 13px;
+  color: var(--brown-light);
+  font-family: 'Archivo Narrow', sans-serif;
+  letter-spacing: 0.3px;
+}
+
+.site-footer a {
+  color: var(--brown-light);
+  border-bottom: none;
+  margin: 0 8px;
+}
+
+.site-footer a:hover {
+  color: var(--orange-deep);
+}/* ---- layout replacing Bootstrap ---- */
+.container-fluid{margin:0 auto;padding:0 15px;width:100%}
+main.container-fluid{max-width:980px}
+.navbar-default .navwrap{max-width:none;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.navbar-brand{display:block}
+.navbar-nav{list-style:none;margin:0;padding:0;display:flex;float:none !important}
+.navbar-nav>li>a,.nav-tabs>li>a{display:block;position:relative;cursor:pointer}
+.navbar-nav>li>a{padding:18px 15px 15px}
+.navbar-toggle{display:none;background:transparent;border:1px solid var(--hairline);border-radius:4px;padding:9px 10px;cursor:pointer}
+.navbar-toggle .icon-bar{display:block;width:22px;height:2px;margin:4px 0;border-radius:1px}
+.navbar-nav>li.active>a,.nav-tabs>li.active>a{}
+.nav-tabs{list-style:none;padding:0;display:flex;flex-wrap:wrap}
+.nav-tabs>li>a{padding:10px 15px}
+.row{display:flex;flex-wrap:wrap;margin:0 -15px;align-items:flex-start}
+.col7{flex:0 0 58.333%;max-width:58.333%;padding:0 15px}
+.col5{flex:0 0 41.667%;max-width:41.667%;padding:0 15px}
+.btn{display:inline-block;cursor:pointer;text-align:center;line-height:1.5}
+.btn:hover{border-bottom:1px solid var(--orange-deep)}
+.page,.subpage{display:none}
+.page.active,.subpage.active{display:block}
+ol{padding-left:22px}
+li{margin-bottom:8px}
+a:hover{text-decoration:none}
+@media (max-width:767px){
+  .navbar-toggle{display:block}
+  .navbar-nav{display:none;width:100%;flex-direction:column}
+  .navbar-nav.open{display:flex}
+  .col7,.col5{flex:0 0 100%;max-width:100%}
+  .intro-bio p{font-size:18px}
+  .timeline-content{width:100%}
+}
+
+</style>
+</head>
+<body>
+<header class="navbar-default">
+  <div class="container-fluid navwrap">
+    <div class="navbar-brand"><a href="#about">Vicky Y. Wang, MHI</a></div>
+    <button class="navbar-toggle" aria-label="Menu" aria-expanded="false"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+    <ul class="navbar-nav" id="mainnav">
+      <li data-tab="about"><a href="#about">About Me</a></li>
+      <li data-tab="experience"><a href="#experience">Experience</a></li>
+      <li data-tab="projects"><a href="#projects">Projects</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="container-fluid">
+
+<!-- ABOUT -->
+<section class="page" id="about">
+  <div class="content-box">
+    <h2>Hi there!</h2>
+    <div class="row">
+      <div class="col7 intro-bio">
+        <p>I am <strong>Vicky Wang</strong>, a current PhD student in <strong>Health Services Research and Policy</strong> at the University of Pittsburgh School of Public Health. My research interests center on discovering how "policy shocks" affect public health insurance programs and evaluating the evolution of the Affordable Care Act (ACA).</p>
+        <p>I graduated with my Master of Health Informatics from the University of Michigan in 2024. Previously, I was a civil employee at the Centers for Medicare and Medicaid Services (CMS) Center for Consumer Information and Insurance Oversight (CCIIO). Now, I am an indignant #FiredFed.</p>
+        <p>I am also an analyst for a federal contractor to CMS, overseeing the technical implementation of a Salesforce-based tool to support annual CCIIO Marketplace Plan Management Group (MPMG) Plan Year Qualified Health Plan Certification activities.</p>
+        <p>You can reach me at <a href="mailto:viw95@pitt.edu">viw95@pitt.edu</a>.</p>
+      </div>
+      <div class="col5">
+        <div class="hero-photo"><img src="img/headshot.webp" width="260" height="260" alt="Vicky Wang headshot" fetchpriority="high"></div>
+      </div>
+    </div>
+  </div>
+  <div class="content-box">
+    <h3>About Me</h3>
+    <h4><strong>Education</strong></h4>
+    <p><strong>Doctor of Philosophy, Health Services Research and Policy</strong></p>
+    <p>University of Pittsburgh School of Public Health</p>
+    <p>08/2026 - Present</p><br>
+    <p><strong>Master of Health Informatics (MHI)</strong></p>
+    <p>University of Michigan</p>
+    <p>08/2023 - 12/2024</p><br>
+    <p><strong>Bachelor of Science in Microbiology</strong></p>
+    <p>Minors: Gender and Health, Applied Statistics</p>
+    <p>University of Michigan</p>
+    <p>08/2020 - 05/2023</p><br>
+    <h4><strong>Skills</strong></h4>
+    <p><strong>Software: </strong>Microsoft Office, Microsoft Access, Google Suite</p>
+    <p><strong>Programming: </strong>R (tidyverse, rshiny), Python (plotly, shinypy), Git/hub, C++, SQL</p>
+    <p><strong>Languages: </strong>Mandarin, German</p>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="page" id="experience">
+  <div class="content-box">
+    <h3>Experiences</h3>
+    <ul class="nav-tabs" id="subnav">
+      <li data-sub="professional"><a href="#experience/professional">Professional</a></li>
+      <li data-sub="teaching"><a href="#experience/teaching">Teaching</a></li>
+      <li data-sub="research"><a href="#experience/research">Research</a></li>
+      <li data-sub="practice"><a href="#experience/practice">Practice &amp; Community</a></li>
+      <li data-sub="fun"><a href="#experience/fun">Fun Stuff</a></li>
+    </ul>
+
+    <div class="subpage" id="sub-professional">
+      <div class="entry-card"><p><strong>Graduate Student Researcher</strong></p><p>University of Pittsburgh School of Public Health</p><p>08/2026 - Present | Pittsburgh, PA</p><p>PhD student in Health Services Research and Policy, researching shocks to federally regulated health insurance systems and supporting the long-term sustainability of the Affordable Care Act.</p></div>
+      <div class="entry-card"><p><strong>Business Process Analyst</strong></p><p>General Dynamics Information Technology (GDIT)</p><p>06/2025 - Present | Washington, DC</p><p>CMS Contractor implementing the Enrollment Community, which manages parent organizations and issuers who offer QHPs in the individual Marketplace. Federal Health Division - Marketplace Eligibility and Enrollment Group, Marketplace Plan Management Group, Centers for Medicare and Medicaid Services.</p></div>
+      <div class="entry-card"><p><strong>Management and Program Analyst</strong></p><p>Centers for Medicare and Medicaid Services (CMS)</p><p>01/2025 - 05/2025 | Bethesda, MD</p><p>Developing subject matter expertise on individual Marketplace eligibility. Working on the `Help on Demand` contract to provide consumers on-demand support from agents and brokers to purchase Quality Health Plans (QHPs).</p></div>
+      <div class="entry-card"><p><strong>Statistics Trainee</strong></p><p>United States Department of Agriculture National Agricultural Statistics Service (USDA NASS) | Great Lakes Region</p><p>04/2022 - 08/2022 | East Lansing, MI</p><p>Edited, analyzed, and cleaned over 600 records from USDA NASS questionnaires such as the June Area survey, crop weather reports, and cash rents data, and worked on the publication of National Agricultural Reports in the Great Lakes Region, including survey data cleaning and data visualization.</p></div>
+    </div>
+
+    <div class="subpage" id="sub-teaching">
+      <div class="entry-card"><p><strong>Graduate Student Instructor</strong></p><p>University of Michigan College of Literature, Science, and the Arts</p><p>08/2023 - 01/2025 | Ann Arbor, MI</p><p>Graduate Student Instructor for SOC 210: Introduction to Statistics for the Social Sciences. I taught 13-40 undergraduate students at the University of Michigan per week for three semesters on introductory statistical concepts and their applications into social science research. Students' experience level of statistics ranged from no exposure to university-level coursework completed. I was tasked with bridging this wide range in quantitative skill levels to support and allow each student succeed.</p></div>
+    </div>
+
+    <div class="subpage" id="sub-research">
+      <div class="entry-card"><p><strong>Research Assistant</strong></p><p>University of Michigan Institute for Social Research | Survey Research Center | Social Environment and Health Program</p><p>07/2024 - 01/2026 | Ann Arbor, MI</p><p>Working with Dr. Kate Duchowny on descriptive characterization of the National Neighborhood Data Archive (NaNDA)'s Essential Workers dataset. These datasets are derived from the American Community Survey and provide insights into how built environment impacts the health of its residents. My research involves understanding where essential workers live and visualizing their distribution across the United States.</p></div>
+      <div class="entry-card"><p><strong>Research Assistant</strong></p><p>University of Michigan School of Public Health | Department of Health Management and Policy</p><p>05/2024 - 12/2024 | Ann Arbor, MI</p><p>Individually guided epidemiological research with Dr. Rahul Ladhania on a health application, <em>fooya!</em> geared towards children to mitigate diabetes onset using a digital health intervention.</p></div>
+      <div class="entry-card"><p><strong>Program Assistant</strong></p><p>University of Michigan LEAD Scholars Research Program</p><p>06/2024 - 07/2024 | Ann Arbor, MI</p><p>Program Assistant for the University of Michigan LEAD Scholars Research Program, supporting undergraduate researchers in the program under Dr. Rahul Ladhania.</p></div>
+      <div class="entry-card"><p><strong>Undergraduate Research Assistant, Ono Lab</strong></p><p>University of Michigan Medical School | Department of Microbiology and Immunology</p><p>04/2020 - 08/2023 | Ann Arbor, MI</p><p>Researched HIV-1 infection processes under Dr. Akira Ono, with an emphasis on molecular mechanisms impacting viral infectivity. Utilized wet laboratory and computational methods to identify proteins and genes of interest and perform analyze using live cancer cell lines.</p></div>
+      <div class="entry-card"><p><strong>Research Assistant</strong></p><p>University of Michigan Department of Women and Gender Studies</p><p>05/2022 - 12/2022 | Ann Arbor, MI</p><p>Under Dr. Diana Louis, examined primary source narratives to identify mental health experiences among freed and incarcerated Black individuals in the mid to late-19th century using qualitative thematic methods.</p></div>
+      <div class="entry-card"><p><strong>Undergraduate Research Assistant, Galban Lab</strong></p><p>University of Michigan Undergraduate Research Opportunity Program (UROP)</p><p>09/2020 - 05/2021 | Ann Arbor, MI</p><p>Contributed to a mouse model research data pool by collecting and organizing information from Excel RNASeq data. Presented research conclusions at the University of Michigan's year-end research symposium.</p></div>
+    </div>
+
+    <div class="subpage" id="sub-practice">
+      <div class="entry-card"><p><strong>Student Consultant</strong></p><p>Ginsberg Center for Community Service and Learning | Community Technical Assistance Collaborative</p><p>05/2023 - 01/2025 | Ann Arbor, MI</p><p>Project consultant with specialization in data-based technical assistance methods.</p><p>Notable Projects:</p>
+        <ol>
+          <li>Performed ordinance analysis of Ypsilanti Twp, Pittsfield Twp, and the City of Ann Arbor regulations surrounding residential and property violations leading to fines or other punitive damages for residents using a qualitative approach.</li>
+          <li>Developed an improved data mapping tool using RShiny and ShinyApps to support efforts to create a website application that visualizes and highlights the prevalence of manufactured housing communities in the state of Michigan. Access here: <a href="https://vwang.shinyapps.io/mhcR/" target="_blank" rel="noopener">https://vwang.shinyapps.io/mhcR/</a></li>
+          <li>Explained insights into reform recommendations surrounding existing restraint laws, contributing to the establishment of the Juvenile Justice Reform Task Force, formed by Governor Whitmer and led by Lt. Governor Gilchrist to address questions relating to juvenile justice reform. Translated complex restraint and seclusion incidence data insights into actionable strategies, presenting data evaluation findings and policy recommendations to the Michigan Department of Health and Human Services in July 2023.</li>
+        </ol></div>
+      <div class="entry-card"><p><strong>PHAST Fellow</strong></p><p>Public Health Action Support Team</p><p>03/2024 - 05/2024 | San Antonio, TX</p><p>In partnership with the South Central Texas Area Health Education Centers, I was deployed to San Antonio, Texas to collect data, analyze, and perform a community literacy and awareness assessment for asthma literacy in West San Antonio and presented findings to an interdisciplinary team featuring hospital administrators, community health workers and members, and state officials.</p></div>
+      <div class="entry-card"><p><strong>Intern</strong></p><p>Child Care Network</p><p>10/2022 - 12/2022 | Ann Arbor, MI</p><p>Research intern examining children's health outcomes and early childhood literacy with a focus on functional health literacy that informs personalized health decisions.</p></div>
+    </div>
+
+    <div class="subpage" id="sub-fun">
+      <div class="entry-card"><p><strong>Studio Experience Team</strong></p><p>CorePower Yoga</p><p>01/2026 - 06/2026 | Washington, DC</p></div>
+      <div class="entry-card"><p><strong>Circulation Services Assistant</strong></p><p>University of Michigan</p><p>08/2021 - 01/2025 | Ann Arbor, MI</p></div>
+      <div class="entry-card"><p><strong>Social Media Ambassador</strong></p><p>Flytedesk</p><p>09/2020 - 12/2024</p><p>Developed engaging Instagram Stories and Posts focused on voter education, deadlines, registration steps, and voting rights. Planned and executed targeted social media campaigns leading up to key voting dates.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="page" id="projects">
+  <div class="entry-card">
+    <h3>Community Partners Map</h3>
+    <p><em>Ginsberg Center for Community Service and Learning</em></p>
+    <p>An interactive map of the Ginsberg Center's community partner organizations, built and hosted on Posit Connect Cloud.</p>
+    <div><a class="btn btn-primary" href="https://viwack-ginsberg-community-partners.share.connect.posit.cloud/" target="_blank" rel="noopener">Open Community Partners Map in a new tab</a></div>
+  </div>
+  <div class="entry-card">
+    <h3>IMPACT Medicare Advantage Cancer Centers</h3>
+    <p><em>Graduate Student Researcher Academic Appointment</em></p>
+    <p>Evaluating the distribution of NCI-accredited Cancer Centers and their coverage by Medicare Advantage plans, as part of my graduate student researcher appointment at the University of Pittsburgh School of Public Health.</p>
+  </div>
+  <div class="entry-card">
+    <h3>National Neighborhood Data Archive (NaNDA) Essential Workers</h3>
+    <p><em>Essential Work, Unequal Places: Neighborhood Characteristics of the Essential Workforce in the United States during the COVID-19 Pandemic</em> has been published in <strong>PLOS ONE</strong>.</p>
+    <div><a class="btn btn-primary" href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0357792" target="_blank" rel="noopener">Read the paper</a></div>
+  </div>
+  <div class="entry-card">
+    <h3>Empowering Advocacy through Data: Mapping Manufactured Housing Communities with MHAction and CTAC</h3>
+    <p><em>The Project</em></p>
+    <p>In collaboration with <strong>MHAction</strong>, Ginsberg's Community Technical Assistance Collaborative (CTAC) developed an innovative web-based mapping application that visualizes <strong>manufactured housing communities (MHCs)</strong> across Michigan. The project aim was to create an accessible tool that could assist in the organization’s advocacy for affordable and quality manufactured housing, and to bolster their broader campaigns for racial and economic justice.</p>
+    <p><em>What We Created</em></p>
+    <p>Under this partnership, we designed and coded an interactive mapping web tool, accompanied by a comprehensive data use guide. The tool visualizes data on MHCs, allowing users to zoom in on specific legislative districts, explore detailed community information, and generate site data in table form. Built on the RShiny framework, the tool integrates data sources from the Michigan Department of Licensing and Regulatory Affairs (LARA) and MHVillage, ensuring data is both accurate and up-to-date. The guide provides step-by-step instructions for using the tool, including data updates and running the application locally.</p>
+    <div><a class="btn btn-primary" href="https://mhaction-mi-map.share.connect.posit.cloud/" target="_blank" rel="noopener">Manufactured Housing Mapping Dashboard, MHAction</a></div>
+    <br><img src="img/mhaction.webp" height="300" style="height:300px;width:auto;max-width:100%" loading="lazy" alt="MHAction mapping dashboard screenshot"><br>
+  </div>
+  <div class="entry-card">
+    <h3>Ann Arbor Summer Festival</h3>
+    <p><em>This report outlines the processes and findings from a visitor survey conducted at the Ann Arbor Summer Festival (A2SF) in 2024. The survey aimed to gather demographic and experiential data from festival attendees to help A2SF better understand and serve its audience.</em></p>
+    <p><strong>Project Timeline:</strong></p>
+    <p>January - April 2024: CTAC student team collaborated with A2SF to design the survey and dissemination plan for the summer season.</p>
+    <p>June 14 - 30, 2024: In-person data collection was supported by CTAC students, except for specific dates when the festival was not operating.</p>
+    <p>August - September 2024: Combined and analyzed in-person and postseason survey data after extensive cleaning.</p>
+    <div><a class="btn btn-primary" href="https://viwack.github.io/a2sf-visitor-survey/" target="_blank" rel="noopener">Ann Arbor Summer Festival Visitor Survey 2024 Report</a></div>
+    <img src="img/a2sf.webp" style="height:400px;width:auto;max-width:100%" loading="lazy" alt="Ann Arbor Summer Festival survey report">
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <span>Get in touch: </span>
+  <a href="https://www.linkedin.com/in/viwa" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 448 512" width="16" height="16" fill="currentColor"><path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"/></svg></a>
+  <a href="https://github.com/viwack" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 496 512" width="16" height="16" fill="currentColor"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg></a>
+  <a href="mailto:viw95@pitt.edu" aria-label="Email"><svg viewBox="0 0 512 512" width="16" height="16" fill="currentColor"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48H48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0L0 176z"/></svg></a>
+</footer>
+
+<script>
+(function(){
+  var pages=["about","experience","projects"], subs=["professional","teaching","research","practice","fun"];
+  var $=function(s){return document.querySelectorAll(s)};
+  function route(){
+    var h=location.hash.replace("#","").split("/"), p=pages.indexOf(h[0])>-1?h[0]:"about";
+    var s=subs.indexOf(h[1])>-1?h[1]:"professional";
+    $(".page").forEach(function(e){e.classList.toggle("active",e.id===p)});
+    $("#mainnav li").forEach(function(e){e.classList.toggle("active",e.dataset.tab===p)});
+    $(".subpage").forEach(function(e){e.classList.toggle("active",e.id==="sub-"+s)});
+    $("#subnav li").forEach(function(e){e.classList.toggle("active",e.dataset.sub===s)});
+    document.getElementById("mainnav").classList.remove("open");
+    window.scrollTo(0,0);
+  }
+  window.addEventListener("hashchange",route);
+  document.querySelector(".navbar-toggle").addEventListener("click",function(){
+    var n=document.getElementById("mainnav"); this.setAttribute("aria-expanded",n.classList.toggle("open"));
+  });
+  route();
+})();
+</script>
+</body>
 </html>
