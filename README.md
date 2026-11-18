@@ -2,7 +2,7 @@
 
 Personal academic and professional website for **Vicky Y. Wang, MHI**, PhD student in Health Services Research and Policy at the University of Pittsburgh School of Public Health.
 
-**Live site:** https://YOUR-USERNAME.github.io/me/
+**Live site:** https://viwack.github.io/me/
 
 ## About
 
