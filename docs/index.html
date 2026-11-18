@@ -411,6 +411,39 @@ a:hover{text-decoration:none}
   .timeline-content{width:100%}
 }
 
+/* ---- sidebar layout ---- */
+.navbar-default .navwrap{max-width:1180px}
+.layout{max-width:1180px;margin:0 auto;padding:0 15px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:44px;align-items:start}
+.sidebar{position:sticky;top:24px;padding:30px 0;text-align:center}
+.sidebar-photo{width:200px;height:200px;border-radius:50%;object-fit:cover;border:1px solid var(--hairline);margin:0 auto 18px}
+.sidebar p{margin:0 0 10px;line-height:1.4}
+.sidebar-role{font-family:'Archivo Narrow',sans-serif;font-size:17px;color:var(--brown-deep)}
+.sidebar-role strong{font-size:19px}
+.sidebar-affil{font-size:14px;color:var(--brown)}
+.sidebar-links{margin-top:14px}
+.sidebar-links a{color:var(--brown);margin:0 8px;border-bottom:none}
+.sidebar-links a:hover{color:var(--orange-deep);border-bottom:none}
+.content{min-width:0}
+.intro-bio p{font-size:19px}
+.site-footer{max-width:1180px}
+/* ---- publications ---- */
+.pub-card{display:flex;gap:24px;background:#fff;border:1px solid var(--hairline);border-left:4px solid var(--orange);border-radius:5px;padding:22px 26px;margin-bottom:22px}
+.pub-thumb{flex:0 0 220px;width:220px;height:auto;align-self:flex-start;border:1px solid var(--hairline);border-radius:4px;margin:0;background:var(--cream)}
+.pub-body{flex:1;min-width:0}
+.pub-title{text-transform:none;letter-spacing:.2px;font-size:19px;line-height:1.35;color:var(--brown-deep);margin:0 0 8px}
+.pub-title a{color:var(--brown-deep)}
+.pub-title a:hover{color:var(--orange-deep)}
+.pub-authors{margin-bottom:4px;font-size:15px}
+.pub-venue{margin-bottom:10px;font-size:14px;color:var(--brown)}
+.pub-desc{font-size:15px;margin-bottom:8px}
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr;gap:0}
+  .sidebar{position:static;padding:22px 0 6px;border-bottom:1px solid var(--hairline)}
+  .sidebar-photo{width:140px;height:140px}
+  .pub-card{flex-direction:column}
+  .pub-thumb{flex:none;width:100%;max-width:360px}
+}
+
 </style>
 </head>
 <body>
@@ -422,27 +455,32 @@ a:hover{text-decoration:none}
       <li data-tab="about"><a href="#about">About Me</a></li>
       <li data-tab="experience"><a href="#experience">Experience</a></li>
       <li data-tab="projects"><a href="#projects">Projects</a></li>
+      <li data-tab="publications"><a href="#publications">Publications</a></li>
     </ul>
   </div>
 </header>
 
-<main class="container-fluid">
+<div class="layout">
+<aside class="sidebar">
+  <img class="sidebar-photo" src="img/headshot.webp" width="200" height="200" alt="Vicky Wang headshot" fetchpriority="high">
+  <p class="sidebar-role"><strong>PhD Student</strong><br>Health Services Research and Policy</p>
+  <p class="sidebar-affil">University of Pittsburgh<br>School of Public Health</p>
+  <div class="sidebar-links"><a href="https://www.linkedin.com/in/viwa" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 448 512" width="16" height="16" fill="currentColor"><path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"/></svg></a>
+  <a href="https://github.com/viwack" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 496 512" width="16" height="16" fill="currentColor"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg></a>
+  <a href="mailto:viw95@pitt.edu" aria-label="Email"><svg viewBox="0 0 512 512" width="16" height="16" fill="currentColor"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48H48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0L0 176z"/></svg></a></div>
+</aside>
+<main class="content">
 
 <!-- ABOUT -->
 <section class="page" id="about">
   <div class="content-box">
     <h2>Hi there!</h2>
-    <div class="row">
-      <div class="col7 intro-bio">
+    <div class="intro-bio">
         <p>I am <strong>Vicky Wang</strong>, a current PhD student in <strong>Health Services Research and Policy</strong> at the University of Pittsburgh School of Public Health. My research interests center on discovering how "policy shocks" affect public health insurance programs and evaluating the evolution of the Affordable Care Act (ACA).</p>
         <p>I graduated with my Master of Health Informatics from the University of Michigan in 2024. Previously, I was a civil employee at the Centers for Medicare and Medicaid Services (CMS) Center for Consumer Information and Insurance Oversight (CCIIO). Now, I am an indignant #FiredFed.</p>
         <p>I am also an analyst for a federal contractor to CMS, overseeing the technical implementation of a Salesforce-based tool to support annual CCIIO Marketplace Plan Management Group (MPMG) Plan Year Qualified Health Plan Certification activities.</p>
         <p>You can reach me at <a href="mailto:viw95@pitt.edu">viw95@pitt.edu</a>.</p>
       </div>
-      <div class="col5">
-        <div class="hero-photo"><img src="img/headshot.webp" width="260" height="260" alt="Vicky Wang headshot" fetchpriority="high"></div>
-      </div>
-    </div>
   </div>
   <div class="content-box">
     <h3>About Me</h3>
@@ -554,18 +592,35 @@ a:hover{text-decoration:none}
   </div>
 </section>
 
-</main>
+<!-- PUBLICATIONS -->
+<section class="page" id="publications">
+  <div class="content-box">
+    <h3>Publications</h3>
 
-<footer class="site-footer">
-  <span>Get in touch: </span>
-  <a href="https://www.linkedin.com/in/viwa" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 448 512" width="16" height="16" fill="currentColor"><path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"/></svg></a>
-  <a href="https://github.com/viwack" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 496 512" width="16" height="16" fill="currentColor"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg></a>
-  <a href="mailto:viw95@pitt.edu" aria-label="Email"><svg viewBox="0 0 512 512" width="16" height="16" fill="currentColor"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48H48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0L0 176z"/></svg></a>
-</footer>
+    <article class="pub-card">
+      <img class="pub-thumb" src="https://journals.plos.org/plosone/article/figure/image?size=medium&amp;id=10.1371/journal.pone.0357792.g002" alt="Heatmap of neighborhood resources by essential worker quintile" loading="lazy">
+      <div class="pub-body">
+        <h4 class="pub-title"><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0357792" target="_blank" rel="noopener">Essential work, unequal places: Neighborhood characteristics of the essential workforce in the United States during the COVID-19 pandemic</a></h4>
+        <p class="pub-authors">Kate Duchowny, <strong>Vicky Wang</strong>, Grace Noppert, Robert Melendez, Lindsay Gypin, Philippa Clarke</p>
+        <p class="pub-venue"><em>PLOS ONE</em> 21(9): e0357792 &middot; September 30, 2026</p>
+        <p class="pub-desc">Links National Neighborhood Data Archive (NaNDA) data with American Community Survey estimates to describe where U.S. essential workers lived at the start of the COVID-19 pandemic. Neighborhoods with more essential workers had better access to food stores, but far less access to health care and parks and green space.</p>
+        <a class="btn btn-primary" href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0357792" target="_blank" rel="noopener">Read the paper</a>
+      </div>
+    </article>
+
+    <!-- TO ADD A PUBLICATION: copy the whole <article class="pub-card"> block above,
+         paste it here, and change the image, title, authors, venue, description and links. -->
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer class="site-footer"><span>&copy; Vicky Wang</span></footer>
 
 <script>
 (function(){
-  var pages=["about","experience","projects"], subs=["professional","teaching","research","practice","fun"];
+  var pages=["about","experience","projects","publications"], subs=["professional","teaching","research","practice","fun"];
   var $=function(s){return document.querySelectorAll(s)};
   function route(){
     var h=location.hash.replace("#","").split("/"), p=pages.indexOf(h[0])>-1?h[0]:"about";
